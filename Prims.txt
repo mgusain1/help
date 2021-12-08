@@ -1,0 +1,25 @@
+INF = 9999999
+V = 5
+Adj = []
+for i in range(0, V):
+    arr = list(map(int, input().split()))
+    Adj.append(arr)
+selected = [0, 0, 0, 0, 0]
+no_edge = 0
+selected[0] = True
+print("Edge : Weight\n")
+while (no_edge < V - 1):
+    minimum = INF
+    x = 0
+    y = 0
+    for i in range(V):
+        if selected[i]:
+            for j in range(V):
+                if ((not selected[j]) and Adj[i][j]):
+                    if minimum > Adj[i][j]:
+                        minimum = Adj[i][j]
+                        x = i
+                        y = j
+    print(str(x) + "-" + str(y) + ":" + str(Adj[x][y]))
+    selected[y] = True
+    no_edge += 1
