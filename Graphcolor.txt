@@ -1,0 +1,42 @@
+def printColor(g, V):
+    used = [0] * V
+    ans = [-1] * V
+    ans[0] = 0;
+    for u in range(1, V):
+        for i in g[u]:
+            if (ans[i] != -1):
+                used[ans[i]] = 1
+        color = 0
+        while color < V:
+            if (used[color] == 0):
+                break
+            color += 1
+        ans[u] = color
+        for i in g[u]:
+            if (ans[i] != -1):
+                used[ans[i]] = 0
+ 
+    maxColor=0
+    for u in range(V):
+        print("Vertex", u, " is colored with", ans[u])
+        if maxColor<ans[u]:
+            maxColor=ans[u]
+    print('\nNo of colors used are ',maxColor+1)
+    
+def addEdge(g, x, y):
+    g[x].append(y)
+    g[y].append(x) 
+    return g
+
+g = [[] for i in range(6)]
+g = addEdge(g, 0, 2)
+g = addEdge(g, 0, 4)
+g = addEdge(g, 0, 1)
+g = addEdge(g, 1, 2)
+g = addEdge(g, 1, 3)
+g = addEdge(g, 1, 5)
+g = addEdge(g, 2, 3)
+g = addEdge(g, 2, 4)
+g = addEdge(g, 3, 5)
+g = addEdge(g, 4, 5)
+printColor(g, 6)

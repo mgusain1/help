@@ -1,0 +1,15 @@
+#Word Tokenization
+
+import nltk
+from nltk.tokenize import word_tokenize
+text = "The flowers arrived on Thursday, exactly two days before she met them, and embarked upon the journey of a lifetime to execute a plan she knew nothing about until she was right in the middle of it. \n\nThat is not how Charlotte Parker saw her weekend going. With the flowers was an unsigned note written on a carelessly torn piece of parchment. It read, \n\n'A bouquet of baby's breath and black roses to remind you to never let go of your innocence, to always love yourself and to be open to new things and accept them as and when they come your way'"
+print(text)
+print(word_tokenize(text))
+
+#Sentence Tok
+
+import nltk
+from nltk.tokenize import sent_tokenize
+text = "The flowers arrived on Thursday, exactly two days before she met them, and embarked upon the journey of a lifetime to execute a plan she knew nothing about until she was right in the middle of it. \n\nThat is not how Charlotte Parker saw her weekend going. With the flowers was an unsigned note written on a carelessly torn piece of parchment. It read, \n\n'A bouquet of baby's breath and black roses to remind you to never let go of your innocence, to always love yourself and to be open to new things and accept them as and when they come your way'"
+print(text)
+print(sent_tokenize(text))

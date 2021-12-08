@@ -1,0 +1,35 @@
+from queue import PriorityQueue
+
+def bestFirstSearch(g,src,dest,n,dist):
+	vis = [0] * n
+	vis[src] = 1
+	q=PriorityQueue()
+	q.put((0, src))
+	while q.empty() == 0:
+		node = q.get()[1]
+		print(node,end=" ")
+		if node == dest:
+			break
+		for nbr in g[node]:
+			if vis[nbr] == 0:
+				vis[nbr] = 1
+				q.put((dist[nbr],nbr))
+
+def addEdge(g, x, y):
+    g[x].append(y)
+    g[y].append(x)
+    return g
+
+g = [[] for i in range(6)]
+g = addEdge(g, 0, 2)
+g = addEdge(g, 0, 4)
+g = addEdge(g, 0, 1)
+g = addEdge(g, 1, 2)
+g = addEdge(g, 1, 3)
+g = addEdge(g, 1, 5)
+g = addEdge(g, 2, 3)
+g = addEdge(g, 2, 4)
+g = addEdge(g, 3, 5)
+g = addEdge(g, 4, 5)
+dist=[0,5,4,3,6,0]
+bestFirstSearch(g,0,5,6,dist)

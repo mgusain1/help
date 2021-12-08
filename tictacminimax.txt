@@ -1,0 +1,98 @@
+playerA, playerB = 'A', 'B'
+
+def isMovesLeft(board) :
+	for i in range(3) :
+		for j in range(3) :
+			if (board[i][j] == ' ') :
+				return True
+	return False
+
+def evaluate(board) :
+	for row in range(3) :	
+		if (board[row][0] == board[row][1] and board[row][1] == board[row][2]) :	
+			if (board[row][0] == playerA) :
+				return 1
+			elif (board[row][0] == playerB) :
+				return -1
+
+	for col in range(3) :
+		if (board[0][col] == board[1][col] and board[1][col] == board[2][col]) :
+			if (board[0][col] == playerA) :
+				return 1
+			elif (board[0][col] == playerB) :
+				return -1
+
+	if (board[0][0] == board[1][1] and board[1][1] == board[2][2]) :
+		if (board[0][0] == playerA) :
+			return 1
+		elif (board[0][0] == playerB) :
+			return -1
+
+	if (board[0][2] == board[1][1] and board[1][1] == board[2][0]) :
+		if (board[0][2] == playerA) :
+			return 1
+		elif (board[0][2] == playerB) :
+			return -1
+
+	return 0
+
+def minimaxAlgo(board, depth, isMax) :
+	score = evaluate(board)
+	if (score == 1) :
+		return score
+	if (score == -1) :
+		return score
+	if (isMovesLeft(board) == False) :
+		return 0
+	if (isMax) :	
+		best = -1000
+		for i in range(3) :		
+			for j in range(3) :
+				if (board[i][j]==' ') :
+					board[i][j] = playerA
+					best = max( best, minimaxAlgo(board,depth + 1,not isMax) )
+					board[i][j] = ' '
+		return best
+	else :
+		best = 1000
+		for i in range(3) :		
+			for j in range(3) :
+				if (board[i][j] == ' ') :
+					board[i][j] = playerB
+					best = min(best, minimaxAlgo(board, depth + 1, not isMax))
+					board[i][j] = ' '
+		return best
+
+def findBestMove(board) :
+	bestVal = -1000
+	bestMove = (-1, -1)
+
+	for i in range(3) :	
+		for j in range(3) :
+			if (board[i][j] == ' ') :
+				board[i][j] = playerA
+				moveVal = minimaxAlgo(board, 0, False)
+                # Backtracking
+				board[i][j] = ' '
+				if (moveVal > bestVal) :			
+					bestMove = (i, j)
+					bestVal = moveVal
+
+	print("The value of the best Move is :", bestVal)
+	return bestMove
+
+board = [
+    [ 'A', 'B', 'A' ],
+    [ 'A', ' ', 'A' ],
+    [ ' ', ' ', 'B' ]
+]
+
+bestMove = findBestMove(board)
+print("Next best move is :", bestMove[0], bestMove[1])
+
+# Here next turn is of player A
+
+# 0  -> Game will be drawn 
+# 1  -> Player A will win
+# -1 -> Player B will win
+# -1000 -> No more possible moves exists (To represent this, next best move will be -1,-1)
